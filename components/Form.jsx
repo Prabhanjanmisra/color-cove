@@ -1,6 +1,8 @@
 import Link from "next/link"
 
+
 const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
+
   return (
     <section className="w-full max-w-full flex-start flex-col">
       <h1 className="head_text text-left" >
@@ -78,6 +80,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           </button>
         </div>
       </form>
+      <p className="my-6 text-amber-50">Don't know about hexcodes? Just pick a color from <Link href="https://htmlcolorcodes.com/" className="underline">here</Link>.</p>
     </section>
   )
 }

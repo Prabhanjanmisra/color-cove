@@ -117,13 +117,17 @@ textarea {
   @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5;
 }
 
-.prompt_layout {
-  @apply space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3;
+.palette_color {
+  @apply w-full text-center text-sm font-semibold text-amber-50 rounded-md py-2 border border-gray-200;
+}
+
+.palette_layout {
+  @apply py-8 gap-4 grid sm:grid-cols-2 xl:grid-cols-3 justify-center grid-flow-row-dense;
 }
 
 /* Feed Component */
 .feed {
-  @apply mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
+  @apply mt-16 relative mx-auto w-full flex justify-center items-center flex-col gap-2;
 }
 
 /* Form Component */
@@ -148,8 +152,8 @@ textarea {
   @apply text-sm font-inter text-amber-50 hover:text-gray-500 font-medium;
 }
 
-/* PromptCard Component */
-.prompt_card {
+/* PaletteCard Component */
+.palette_card {
   @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
 }
 
