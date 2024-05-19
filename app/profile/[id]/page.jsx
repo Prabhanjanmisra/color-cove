@@ -23,7 +23,7 @@ const MyProfile = ({ params }) => {
 
             setPalettes(data);
         }
-        if(session?.user.id) fetchPalettes();
+        fetchPalettes();
     }, []);
 
     const handleEdit = (palette) => {

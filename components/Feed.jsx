@@ -40,6 +40,14 @@ const Feed = () => {
     setFilteredPalettes(filtered);
   }
 
+  const handleTagClick = (tag) => {
+    setSearchText(tag);
+    const reg = new RegExp(tag, "i");
+    const filtered = palettes.filter((palette) => {
+      return reg.test(palette.tag) || reg.test(palette.creator.username);
+    })
+    setFilteredPalettes(filtered);
+  }
 
   useEffect(() => {
     // fetch data
@@ -70,12 +78,12 @@ const Feed = () => {
         searchText?
         <PaletteCardList
           data = {filteredPalettes}
-          handleTagClick={(e)=> setSearchText(e)}
+          handleTagClick={handleTagClick}
         />
         :
         <PaletteCardList
           data={palettes}
-          handleTagClick={(e) => setSearchText(e)}
+          handleTagClick={handleTagClick}
         />
       }
     </section>
