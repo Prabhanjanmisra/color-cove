@@ -1,6 +1,7 @@
 import { connectToDB } from "@utils/database";
 import Palette from "@models/palette";
 
+export const dynamic = 'force-dynamic';
 export const POST = async(req, res) => {
     const {userId, color1, color2, color3, color4, tag} = await req.json();
 

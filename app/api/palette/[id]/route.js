@@ -2,6 +2,7 @@ import { Mongoose } from "mongoose";
 import { connectToDB } from "@utils/database";
 import Palette from "@models/palette";
 
+export const dynamic = 'force-dynamic';
 // GET (read)
 export const GET = async (req, { params }) => {
     try {
