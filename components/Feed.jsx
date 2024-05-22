@@ -9,7 +9,7 @@ const PaletteCardList = ({ data, handleTagClick }) => {
     <div className="mt-16 palette_layout">
       {data.map((palette) => (
         <PaletteCard
-          key={palette.id}
+          key={palette._id}
           palette={palette}
           handleTagClick={handleTagClick}
         />
@@ -28,6 +28,7 @@ const Feed = () => {
     setSearchText(e.target.value);
     const reg = new RegExp(searchText, "i");
     const filtered = palettes.filter((palette) => {
+      if(!palette.creator) return false;
       return reg.test(palette.tag) || reg.test(palette.creator.username);
     })
     setFilteredPalettes(filtered);
@@ -37,6 +38,7 @@ const Feed = () => {
     e.preventDefault();
     const reg = new RegExp(searchText, "i");
     const filtered = palettes.filter((palette) => {
+      if(!palette.creator) return false;
       return reg.test(palette.tag) || reg.test(palette.creator.username);
     })
     setFilteredPalettes(filtered);
@@ -46,7 +48,7 @@ const Feed = () => {
     setSearchText(tag);
     const reg = new RegExp(tag, "i");
     const filtered = palettes.filter((palette) => {
-      return reg.test(palette.tag) || reg.test(palette.creator.username);
+      return reg.test(palette.tag);
     })
     setFilteredPalettes(filtered);
   }
@@ -57,11 +59,13 @@ const Feed = () => {
       const response = await fetch("/api/palette");
       const data = await response.json();
       setPalettes(data);
+      console.log(palettes);
+      setTimeout(() => setLoading(false), 2000);
     }
     catch (error) {
       console.error(error);
+      setLoading(true);
     }
-    setTimeout(() => setLoading(false), 2000);
   }
 
   useEffect(() => {

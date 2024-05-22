@@ -9,7 +9,7 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
       <div className="mt-10 palette_layout">
         {data.map((palette) => (
           <PaletteCard
-            key={palette.id}
+            key={palette._id}
             palette={palette}
             handleEdit={handleEdit}
             handleDelete={handleDelete}
