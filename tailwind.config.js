@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation :{
+        'ping-once': 'ping 1s linear 1',
+      },
       fontFamily: {
         satoshi: ['Satoshi', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],

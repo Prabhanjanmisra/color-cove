@@ -1,6 +1,7 @@
 import '@styles/globals.css';
 import Nav from '@components/Nav';
 import Provider from '@components/Provider';
+import Loader from "@components/Loader"
 
 export const metadata = {
   title: "Color Cove",

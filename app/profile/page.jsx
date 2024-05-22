@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Loader from "@components/Loader";
 
 import Profile from "@components/Profile";
 
@@ -11,16 +12,24 @@ const MyProfile = () => {
     const { data: session } = useSession();
 
     const [palettes, setPalettes] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        // fetch data
-        const fetchPalettes = async () => {
+    const fetchPalettes = async () => {
+        setLoading(true);
+        try {
             const response = await fetch(`/api/users/${session?.user.id}/posts`);
             const data = await response.json();
 
             setPalettes(data);
+        } catch (error) {
+            console.error(error);
         }
-        if(session?.user.id) fetchPalettes();
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        // fetch data
+        if (session?.user.id) fetchPalettes();
     }, []);
 
     const handleEdit = (palette) => {
@@ -29,7 +38,7 @@ const MyProfile = () => {
 
     const handleDelete = async (palette) => {
         const hasConfirmed = confirm('Are you sure you want to delete this palette?');
-        if(hasConfirmed) {
+        if (hasConfirmed) {
             try {
                 await fetch(`/api/palette/${palette._id.toString()}`, {
                     method: 'DELETE'
@@ -45,13 +54,19 @@ const MyProfile = () => {
     }
 
     return (
-        <Profile
-            name="My"
-            desc="Welcome to your personalized profile page"
-            data={palettes}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-        />
+        <>
+            {loading
+                ? <Loader />
+                :
+                <Profile
+                    name="My"
+                    desc="Welcome to your personalized profile page"
+                    data={palettes}
+                    handleEdit={handleEdit}
+                    handleDelete={handleDelete}
+                />
+            }
+        </>
     )
 }
 

@@ -74,7 +74,7 @@ textarea {
 /* Tailwind Styles */
 
 .app {
-  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
+  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6 overflow-x-hidden;
 }
 
 .white_btn {
@@ -106,7 +106,7 @@ textarea {
 }
 
 .search_input {
-  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
+  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0 transition-all active:shadow-xl active:scale-95;
 }
 
 .copy_btn {
@@ -118,7 +118,10 @@ textarea {
 }
 
 .palette_color {
-  @apply w-full text-center text-sm font-semibold text-amber-50 rounded-md py-2 border border-gray-200;
+  @apply w-full text-center text-sm font-semibold text-amber-50 rounded-md py-2 border border-gray-200 transition-all;
+}
+.palette_color:hover {
+  background: transparent !important;
 }
 
 .palette_layout {
@@ -154,7 +157,17 @@ textarea {
 
 /* PaletteCard Component */
 .palette_card {
-  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+  animation: slide 500ms linear forwards;
+  @apply relative flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit hover:scale-105 hover:bg-white/5 transition-all;
+}
+
+@keyframes slide {
+  0% {
+    right: -100%;
+  }
+  100% {
+    right: 0;
+  } 
 }
 
 .flex-center {
@@ -171,4 +184,60 @@ textarea {
 
 .flex-between {
   @apply flex justify-between items-center;
+}
+
+
+
+
+
+
+
+.loader-section {
+  animation: animateBg 10s linear infinite;
+  overflow: hidden;
+  @apply fixed z-10 top-0 min-w-full h-screen flex-center bg-green-800 bg-opacity-90;
+}
+
+@keyframes animateBg {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.loader {
+  @apply relative w-[120px] h-[120px];
+}
+
+.loader span {
+  transform: rotate(calc(18deg * var(--i)));
+  @apply absolute top-0 left-0 w-full h-full;
+}
+
+.loader-before {
+  @apply absolute top-0 left-0 z-[9] w-[15px] h-[15px] bg-[#00ff0a] rounded-full;
+}
+
+.loader span::before {
+  content: '';
+  box-shadow: 0 0 10px #00f00a
+              0 0 20px #00f00a
+              0 0 40px #00f00a
+              0 0 60px #00f00a
+              0 0 80px #00f00a
+              0 0 100px #00f00a;
+  animation: animate 2s linear infinite;
+  animation-delay: calc(0.1s * var(--i));
+  @apply loader-before;
+}
+
+@keyframes animate {
+  0% {
+    transform: scale(1);
+  }
+  80%, 100% {
+    transform: scale(0);
+  }
 }

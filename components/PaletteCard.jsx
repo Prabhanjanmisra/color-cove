@@ -26,7 +26,7 @@ const PaletteCard = ({ palette, handleTagClick, handleEdit, handleDelete }) => {
             alt="user image"
             width={40}
             height={40}
-            className="rounded-full object-contain"
+            className="rounded-full object-contain active:scale-95 hover:scale-105 transition-all"
             onClick={() => handleClick()}
           />
 

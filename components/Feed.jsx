@@ -1,13 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
 import PaletteCard from "./PaletteCard";
+import Loader from "./Loader";
 
 const PaletteCardList = ({ data, handleTagClick }) => {
 
   return (
     <div className="mt-16 palette_layout">
       {data.map((palette) => (
-        <PaletteCard 
+        <PaletteCard
           key={palette.id}
           palette={palette}
           handleTagClick={handleTagClick}
@@ -21,6 +22,7 @@ const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [palettes, setPalettes] = useState([]);
   const [filteredPalettes, setFilteredPalettes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
@@ -49,18 +51,26 @@ const Feed = () => {
     setFilteredPalettes(filtered);
   }
 
-  useEffect(() => {
-    // fetch data
-    const fetchPalettes = async() => {
+  const fetchPalettes = async () => {
+    setLoading(true);
+    try {
       const response = await fetch("/api/palette");
       const data = await response.json();
-
       setPalettes(data);
     }
+    catch (error) {
+      console.error(error);
+    }
+    setTimeout(() => setLoading(false), 2000);
+  }
+
+  useEffect(() => {
+    // fetch data
     fetchPalettes();
   }, []);
 
   return (
+
     <section className="feed">
       <form className="relative w-full flex-center max-w-xl" onSubmit={handleSearchSubmit}>
         <input
@@ -73,18 +83,18 @@ const Feed = () => {
         />
       </form>
 
-
+      {loading && <Loader />}
       {
-        searchText?
-        <PaletteCardList
-          data = {filteredPalettes}
-          handleTagClick={handleTagClick}
-        />
-        :
-        <PaletteCardList
-          data={palettes}
-          handleTagClick={handleTagClick}
-        />
+        searchText ?
+          <PaletteCardList
+            data={filteredPalettes}
+            handleTagClick={handleTagClick}
+          />
+          :
+          <PaletteCardList
+            data={palettes}
+            handleTagClick={handleTagClick}
+          />
       }
     </section>
   )
