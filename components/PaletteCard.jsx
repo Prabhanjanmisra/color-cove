@@ -21,7 +21,6 @@ const PaletteCard = ({ palette, handleTagClick, handleEdit, handleDelete }) => {
     <div className="palette_card">
       <div className="flex flex-col justify-between items-start gap-5">
         <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
-        {console.log(palette.creator)}
           <Image
             src={palette.creator?palette.creator.image:"https://www.pngkey.com/png/full/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png"}
             alt="user image"

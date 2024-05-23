@@ -59,7 +59,6 @@ const Feed = () => {
       const response = await fetch("/api/palette");
       const data = await response.json();
       setPalettes(data);
-      console.log(palettes);
       setTimeout(() => setLoading(false), 2000);
     }
     catch (error) {
